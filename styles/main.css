@@ -1,0 +1,141 @@
+:root {
+  --color-background: #f9f9fb;
+  --color-surface: #ffffff;
+  --color-text: #222222;
+  --color-muted: #6c6f7d;
+  --color-accent: #355cff;
+  --font-base: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-base);
+  line-height: 1.6;
+  color: var(--color-text);
+  background-color: var(--color-background);
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+}
+
+a:hover,
+a:focus {
+  color: var(--color-accent);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+.site-header,
+.site-footer {
+  background-color: var(--color-surface);
+  box-shadow: 0 1px 0 rgba(17, 17, 17, 0.08);
+}
+
+.site-header .layout-grid,
+.site-footer .layout-grid,
+main .layout-grid {
+  padding: 1.5rem 0;
+}
+
+.brand {
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-decoration: none;
+}
+
+.primary-nav {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.menu-toggle {
+  display: none;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  background: none;
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 999px;
+}
+
+.nav-list {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-list a {
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.hero {
+  padding: 4rem 0 3rem;
+  background: linear-gradient(160deg, rgba(53, 92, 255, 0.08), transparent);
+}
+
+.hero h1 {
+  font-size: clamp(2.5rem, 5vw, 3.25rem);
+  margin-bottom: 1rem;
+}
+
+.content {
+  padding: 3rem 0;
+}
+
+.layout-grid {
+  width: min(1100px, 92vw);
+  margin: 0 auto;
+  display: grid;
+  gap: 2rem;
+}
+
+.layout-grid--two {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+.site-footer {
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 0.95rem;
+}
+
+.site-footer a {
+  color: var(--color-accent);
+  text-decoration: none;
+}
+
+@media (max-width: 720px) {
+  .primary-nav {
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .nav-list {
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    padding-top: 1rem;
+  }
+
+  .nav-list.is-open {
+    display: flex;
+  }
+}
