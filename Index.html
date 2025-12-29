@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="hr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virtuelni muzej umjetnosti Novog Pazara</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Source+Serif+4:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #3a3d4a;
+      --blue: #1b5787;
+      --tan: #c3a175;
+      --paper: #f0eadf;
+      --paper-deep: #e5dccf;
+      --card-shadow: rgba(23, 37, 56, 0.08);
+      --max-width: 1200px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Source Serif 4', Georgia, serif;
+      color: var(--ink);
+      background: var(--paper) url('https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=60') center/cover fixed;
+      position: relative;
+      min-height: 100vh;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(241,235,226,0.96) 60%, rgba(233,223,210,0.98) 100%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 20% 20%, rgba(184, 164, 134, 0.13), transparent 25%),
+        radial-gradient(circle at 80% 10%, rgba(171, 152, 123, 0.12), transparent 28%),
+        radial-gradient(circle at 60% 70%, rgba(202, 180, 148, 0.15), transparent 35%);
+      opacity: 0.6;
+      pointer-events: none;
+      z-index: -2;
+    }
+
+    a {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .top-bar {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 24px 24px 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: 'Playfair Display', serif;
+      font-weight: 600;
+      letter-spacing: 0.2px;
+      border-bottom: 1px solid rgba(146, 123, 90, 0.35);
+    }
+
+    .brand {
+      font-size: 20px;
+      color: #1f2a44;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      font-family: 'Source Serif 4', serif;
+      font-size: 15px;
+    }
+
+    .hero {
+      max-width: var(--max-width);
+      margin: 32px auto 12px;
+      padding: 48px 32px 30px;
+      text-align: center;
+      background: rgba(255, 255, 255, 0.84);
+      border-radius: 18px;
+      box-shadow: 0 18px 38px var(--card-shadow);
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(146, 123, 90, 0.18);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 26px;
+      left: 26px;
+      width: 220px;
+      height: 200px;
+      background: url('https://images.unsplash.com/photo-1502136977820-4f04cdedb281?auto=format&fit=crop&w=700&q=60') center/cover no-repeat;
+      opacity: 0.21;
+      pointer-events: none;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url('https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?auto=format&fit=crop&w=1200&q=60') right bottom/360px auto no-repeat;
+      opacity: 0.16;
+      pointer-events: none;
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(32px, 4vw, 40px);
+      margin: 0 0 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero h1 span {
+      font-weight: 700;
+      color: #1f2a44;
+    }
+
+    .hero .subtitle {
+      font-size: 18px;
+      margin: 0 0 18px;
+      position: relative;
+      z-index: 1;
+      color: #444a57;
+    }
+
+    .hero p {
+      max-width: 940px;
+      margin: 0 auto;
+      line-height: 1.75;
+      font-size: 17px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .divider {
+      width: 140px;
+      height: 1px;
+      border-top: 1px solid rgba(146, 123, 90, 0.6);
+      margin: 26px auto 0;
+    }
+
+    .cards-grid {
+      max-width: var(--max-width);
+      margin: 14px auto 32px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 18px;
+    }
+
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.94) 0%, rgba(244,238,229,0.9) 100%);
+      border-radius: 14px;
+      padding: 22px 20px 24px;
+      box-shadow: 0 10px 20px var(--card-shadow);
+      border: 1px solid rgba(146, 123, 90, 0.18);
+      position: relative;
+      overflow: hidden;
+      isolation: isolate;
+    }
+
+    .card h3 {
+      font-family: 'Playfair Display', serif;
+      margin: 0 0 12px;
+      font-size: 22px;
+      color: #24344e;
+    }
+
+    .card p,
+    .card ul {
+      margin: 0;
+      line-height: 1.6;
+      font-size: 15px;
+    }
+
+    .card ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card ul li + li {
+      margin-top: 6px;
+    }
+
+    .card .cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 16px;
+      padding: 11px 14px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 8px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      box-shadow: 0 12px 22px rgba(27, 87, 135, 0.25);
+      transition: transform 120ms ease, box-shadow 120ms ease, background 120ms ease;
+    }
+
+    .card .cta:hover {
+      transform: translateY(-1px);
+      background: #14446b;
+      box-shadow: 0 14px 26px rgba(20, 68, 107, 0.22);
+    }
+
+    .card .art-overlay {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      opacity: 0.22;
+      pointer-events: none;
+      filter: grayscale(6%) contrast(1.04);
+      mix-blend-mode: multiply;
+    }
+
+    .card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 20% 20%, rgba(230, 216, 197, 0.35), transparent 45%);
+      opacity: 0.8;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .quote {
+      max-width: var(--max-width);
+      margin: 18px auto;
+      padding: 0 24px;
+      text-align: center;
+      font-style: italic;
+      font-family: 'Playfair Display', serif;
+      color: #4c4a44;
+      letter-spacing: 0.3px;
+    }
+
+    .info-grid {
+      max-width: var(--max-width);
+      margin: 6px auto 42px;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 18px;
+    }
+
+    .info-box {
+      background: rgba(255,255,255,0.92);
+      border-radius: 12px;
+      padding: 20px 18px 22px;
+      border: 1px solid rgba(146, 123, 90, 0.16);
+      box-shadow: 0 10px 22px var(--card-shadow);
+    }
+
+    .info-box h4 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      font-family: 'Playfair Display', serif;
+      color: #24344e;
+    }
+
+    footer {
+      max-width: var(--max-width);
+      margin: 0 auto 28px;
+      padding: 16px 24px 0;
+      font-size: 14px;
+      color: #4f596b;
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      border-top: 1px solid rgba(146, 123, 90, 0.25);
+    }
+
+    footer a {
+      font-weight: 700;
+    }
+
+    @media (max-width: 768px) {
+      .top-bar {
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .hero {
+        padding: 32px 18px 20px;
+      }
+
+      .hero p {
+        font-size: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="top-bar">
+    <div class="brand">Virtuelni muzej umjetnosti Novog Pazara</div>
+    <nav class="nav-links">
+      <a href="#muzej">Muzej</a>
+      <a href="#umjetnici">Umjetnici</a>
+      <a href="#discipline">Discipline</a>
+      <a href="#o-muzeju">O muzeju</a>
+      <a href="#kontakt">Kontakt</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="muzej">
+      <h1><span>Virtuelni muzej umjetnosti Novog Pazara</span> je trajna<br>digitalna arhiva umjetničke produkcije grada i njegovih umjetnika.</h1>
+      <p class="subtitle">Ovaj muzej dokumentuje i čini vidljivim stvaralaštvo pjesnika, pisaca, muzičara, vizuelnih umjetnika i drugih autora povezanih s Novim Pazarom.</p>
+      <p>On ne rangira, ne vrednuje i ne kanonizira, već bilježi kontinuitet, obim i raznolikost kulturne produkcije. Kroz strukturu i vidljivost, muzej pokazuje kulturnu snagu grada koja je dugo postojala izvan institucionalnog okvira.</p>
+      <div class="divider"></div>
+    </section>
+
+    <section class="cards-grid">
+      <article class="card" id="umjetnici">
+        <div class="art-overlay" style="background-image:url('https://images.unsplash.com/photo-1502136977820-4f04cdedb281?auto=format&fit=crop&w=1000&q=60');"></div>
+        <h3>Umjetnici</h3>
+        <p>Katalog umjetnika povezanih s Novim Pazarom, kroz različite discipline i generacije.</p>
+        <a class="cta" href="#umjetnici">Pregledaj umjetnike →</a>
+      </article>
+
+      <article class="card" id="discipline">
+        <div class="art-overlay" style="background-image:url('https://images.unsplash.com/photo-1489515217757-5fd1be406fef?auto=format&fit=crop&w=1000&q=60');"></div>
+        <h3>Discipline</h3>
+        <ul>
+          <li>Poezija</li>
+          <li>Književnost</li>
+          <li>Muzika</li>
+          <li>Vizuelne umjetnosti</li>
+          <li>Skulptura</li>
+          <li>Film i novi mediji</li>
+        </ul>
+      </article>
+
+      <article class="card">
+        <div class="art-overlay" style="background-image:url('https://images.unsplash.com/photo-1458538977777-0549b2370168?auto=format&fit=crop&w=1000&q=60');"></div>
+        <h3>Kontinuitet stvaranja</h3>
+        <p>Muzej obuhvata više generacija umjetnika, pokazujući kontinuitet stvaralaštva bez obzira na institucionalne prekide.</p>
+        <a class="cta" href="#generacije">Pogledaj generacijski presjek →</a>
+      </article>
+    </section>
+
+    <div class="quote">“Kulturna produkcija Novog Pazara postaje vidljiva tek kada se sagleda u cjelini.”</div>
+
+    <section class="info-grid">
+      <article class="info-box" id="o-muzeju">
+        <h4>O muzeju</h4>
+        <p>Muzej je otvorena digitalna arhiva posvećena dokumentovanju i čuvanju stvaralaštva Novog Pazara.</p>
+        <a href="#saznaj-vise">Saznaj više →</a>
+      </article>
+      <article class="info-box">
+        <h4>Kako učestvovati</h4>
+        <p>Ukoliko ste umjetnik vezan za Novi Pazar, saznajte kako možete doprinijeti našem katalogu.</p>
+        <a href="#prijava">Informacije za prijavu →</a>
+      </article>
+    </section>
+  </main>
+
+  <footer id="kontakt">
+    <div>Virtuelni muzej umjetnosti Novog Pazara | Digitalna arhiva kulturne produkcije</div>
+    <div>© 2024 – danas &nbsp;|&nbsp; <a href="mailto:kontakt@vmup.np">Kontakt</a></div>
+  </footer>
+</body>
+</html>
